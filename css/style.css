@@ -41,7 +41,6 @@ ul {
    Typography
    ============================== */
 h1,
-h2,
 h3,
 h4,
 h5,
@@ -50,6 +49,15 @@ h6 {
   line-height: 1.4;
   font-weight: 400;
   color: #444;
+}
+h2
+{
+  
+  margin-bottom: 1em;
+  line-height: 1.4;
+  font-size:20px !important;
+  font-weight: 250 !important;
+  color: dimgrey!important;
 }
 p {
   font-size: 15px;
@@ -82,9 +90,12 @@ blockquote footer {
   letter-spacing: 2px;
 }
 .alt-font {
-  font-family: 'Dosis', arial, sans-serif;
+  font-family: fantasy !important;
   text-transform: uppercase;
   letter-spacing: 0.2em;
+  font-display: block !important ;
+  font-size: 20px;  
+    
 }
 hr {
   margin-top: 0;
@@ -1008,9 +1019,9 @@ section {
   font-family: 'Dosis', Arial, sans-serif;
   display: table-cell;
   vertical-align: middle;
-  max-width: 118px;
-  height: 75px;
-  font-size: 14px;
+  max-width: 150px !important;
+  height: 100px !important;
+  font-size: 20px;
   letter-spacing: 5px;
   -webkit-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
   -moz-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
@@ -2042,7 +2053,7 @@ span.hs {
   height: 320px;
   margin: 10px 0;
   text-align: center;
-  border: 1px solid #f2f2f2;
+  border: 1px solid dodgerblue !important;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
@@ -2062,6 +2073,8 @@ span.hs {
   -ms-transition: all 0.5s ease;
   transition: all 0.5s ease;
   font-size: 48px;
+  color: #ff4c05 !important;
+  
 }
 .service-item h5 {
   color: #777;

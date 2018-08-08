@@ -1,163 +1,73 @@
-<?php 
-if(!isset($_POST['register']))
+<?php
+include_once("connect.php");
+if(isset($_POST['register']))
 {
-    header('location:index.php');
-}
-require 'vendor/autoload.php';
-use PhpOffice\PhpSpreadsheet;
-$f=0;
-function eof($sheet)
-{
-    $r=1;
-    $mail=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$r)->getValue();
-    while(isset($mail))
-      {
-          $r++;
-          $mail=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$r)->getValue();
-      }
-    return $r;    
-}
-function emailExist($sheet,$email)
-{
-    $r=1;
-    $mail=$sheet->getActiveSheet()->getCellByColumnAndRow(5,$r)->getValue();
-    while(isset($mail))
-      {
-          $r++;
-          if($email==$mail)
-          {
-              $GLOBALS['f']=1;
-              break;
-          }
-          $mail=$sheet->getActiveSheet()->getCellByColumnAndRow(5,$r)->getValue();
-      }
-    return $r;   
-}
-
-function s_event($sheet,$r,$writer,$name,$clg,$gid='')
-{
-$sheet->getActiveSheet()->setCellValue('A'.$r, $r-1); 
-$sheet->getActiveSheet()->setCellValue('B'.$r, $name); 
-$sheet->getActiveSheet()->setCellValue('C'.$r, $clg);
-if(isset($gid)) 
-   $sheet->getActiveSheet()->setCellValue('D'.$r, $gid);
-$writer->save('database/event.xlsx');    
-}
-
-$spreadsheet1 = \PhpOffice\PhpSpreadsheet\IOFactory::load("database/reg.xlsx");
-$spreadsheet2 = \PhpOffice\PhpSpreadsheet\IOFactory::load("database/event.xlsx");
-$reader= \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet1, "Xlsx");
-
-$name=$_POST['name'];
-$clg=$_POST['clg'];
-$gender=$_POST['gender'];
-$mob=$_POST['phn'];
-$email=$_POST['email'];
-$food=$_POST['food'];
-$stay=$_POST['stay'];
-$spreadsheet1->setActiveSheetIndexByName('registered-students');    
-$r=emailExist($spreadsheet1,$email);
-if($f==1)
-{
-    echo"<script>alert('Email already registered');
-    window.location.href='register.php';</script>";
-
-}
-else
-{
-$spreadsheet1->getActiveSheet()->setCellValue('A'.$r, $r-1); 
-$spreadsheet1->getActiveSheet()->setCellValue('B'.$r, $name); 
-$spreadsheet1->getActiveSheet()->setCellValue('C'.$r, $gender); 
-$spreadsheet1->getActiveSheet()->setCellValue('D'.$r, $mob); 
-$spreadsheet1->getActiveSheet()->setCellValue('E'.$r, $email); 
-$spreadsheet1->getActiveSheet()->setCellValue('F'.$r, $clg);  
-$writer->save('database/reg.xlsx');
-if($gender=='m')
-{
-    $spreadsheet1->setActiveSheetIndexByName('registered-boys');    
-    $r=eof($spreadsheet1);
+ $email=$_POST['email'];  
+ $phone=$_POST['phn'];
+ $name=$_POST['name'];
+ $sex=$_POST['gender'];
+ $clg=$_POST['clg'];
+ $food=$_POST['food'];
+ $stay=$_POST['stay'];
+ $r1=mysqli_query($con,"select * from `registered-students` where `EMAIL`='$email'")or die(mysqli_error($con));
+ $r2=mysqli_query($con,"select * from `registered-students` where `PHONE`='$phone'")or die(mysqli_error($con));
+ if(mysqli_num_rows($r1)>0)
+    echo "<script> alert('Email already exist');window.location.href='register.php';</script>"; 
+ if(mysqli_num_rows($r2)>0)
+    echo "<script> alert('Phone number already exist');window.location.href='register.php';</script>"; 
+ mysqli_query($con,"insert into `registered-students` values(0,'$name','$sex','$phone','$email','$clg','$stay','$food')")or die(mysqli_error($con));
+ if(isset($_POST['cod']))
+    mysqli_query($con,"insert into `coding` values(0,'$name','$clg')")or die(mysqli_error($con));     
+ if(isset($_POST['game']))
+    mysqli_query($con,"insert into `gaming` values(0,'$name','$clg')")or die(mysqli_error($con));     
+ if(isset($_POST['star']))
+    mysqli_query($con,"insert into `star of inspiro` values(0,'$name','$clg')")or die(mysqli_error($con));     
+ $r1=mysqli_query($con,"select `reg-id` from `registered-students` where `EMAIL`='$email'")or die(mysqli_error($con));
+ $row=mysqli_fetch_array($r1);
+ if(isset($_POST['quiz']))
+ {
+    $a='Q'.$row['reg-id'];
+    $p=$_POST['quiz_p']; 
+    mysqli_query($con,"insert into `quiz` values(0,'$a','$name','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `quiz` values(0,'$a','$p','$clg')")or die(mysqli_error($con));     
+ }
+ if(isset($_POST['web']))
+ {
+    $a='W'.$row['reg-id'];
+    $p=$_POST['web_p']; 
+    mysqli_query($con,"insert into `web designing` values(0,'$a','$name','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `web designing` values(0,'$a','$p','$clg')")or die(mysqli_error($con));     
+ }
+ if(isset($_POST['market']))
+ {
+    $a='M'.$row['reg-id'];
+    $p1=$_POST['market_p1']; 
+    $p2=$_POST['market_p2']; 
+    $p3=$_POST['market_p3']; 
+    mysqli_query($con,"insert into `marketing` values(0,'$a','$name','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `marketing` values(0,'$a','$p1','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `marketing` values(0,'$a','$p2','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `marketing` values(0,'$a','$p3','$clg')")or die(mysqli_error($con));     
+ }
+ if(isset($_POST['treasure']))
+ {
+    $a='T'.$row['reg-id'];
+    $p1=$_POST['treasure_p1']; 
+    $p2=$_POST['treasure_p2']; 
+    mysqli_query($con,"insert into `treasure hunt` values(0,'$a','$name','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `treasure hunt` values(0,'$a','$p1','$clg')")or die(mysqli_error($con));     
+    mysqli_query($con,"insert into `treasure hunt` values(0,'$a','$p2','$clg')")or die(mysqli_error($con));     
+    if($_POST['treasure_p3']!='') 
+    {
+        $p3=$_POST['treasure_p3']; 
+        mysqli_query($con,"insert into `treasure hunt` values(0,'$a','$p3','$clg')")or die(mysqli_error($con));     
+    }
+ }
+  if(!mysqli_error($con))
+  {
+      echo "<script> alert('Registeration Sucessfull');window.location.href='index.php';</script>"; 
+  }
 }
 else
-{
-    $spreadsheet1->setActiveSheetIndexByName('registered-girls');
-    $r=eof($spreadsheet1);
-}
-    
-$spreadsheet1->getActiveSheet()->setCellValue('A'.$r, $r-1); 
-$spreadsheet1->getActiveSheet()->setCellValue('B'.$r, $name); 
-$spreadsheet1->getActiveSheet()->setCellValue('C'.$r, $mob); 
-$spreadsheet1->getActiveSheet()->setCellValue('D'.$r, $email); 
-$spreadsheet1->getActiveSheet()->setCellValue('E'.$r, $clg); 
-$spreadsheet1->getActiveSheet()->setCellValue('F'.$r, $stay); 
-$spreadsheet1->getActiveSheet()->setCellValue('G'.$r, $food); 
-$writer->save('database/reg.xlsx');
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet2, "Xlsx");
-
-if(isset($_POST['cod']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('coding');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg);
-}
-if(isset($_POST['game']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('gaming');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg);
-}
-if(isset($_POST['web']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('designing');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg);
-}
-if(isset($_POST['star']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('star-of-inspiro');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg);
-}
-if(isset($_POST['idea']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('idea-presentation');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg);
-}
-if(isset($_POST['quiz']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('quiz');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg,$r-1);
-    s_event($spreadsheet2,$r+1,$writer,$_POST['quiz_p'],$clg,$r-1);    
-}
-if(isset($_POST['treasure']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('treasure-hunt');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg,$r-1);
-    s_event($spreadsheet2,$r+1,$writer,$_POST['treasure_p1'],$clg,$r-1);
-    s_event($spreadsheet2,$r+2,$writer,$_POST['treasure_p2'],$clg,$r-1);
-    s_event($spreadsheet2,$r+3,$writer,$_POST['treasure_p3'],$clg,$r-1);
-    s_event($spreadsheet2,$r+4,$writer,$_POST['treasure_p4'],$clg,$r-1);
-}
-if(isset($_POST['market']))
-{
-    $spreadsheet2->setActiveSheetIndexByName('marketing');    
-    $r=eof($spreadsheet2);
-    s_event($spreadsheet2,$r,$writer,$name,$clg,$r-1);
-    s_event($spreadsheet2,$r+1,$writer,$_POST['market_p1'],$clg,$r-1);
-    s_event($spreadsheet2,$r+2,$writer,$_POST['market_p2'],$clg,$r-1);
-    s_event($spreadsheet2,$r+3,$writer,$_POST['market_p3'],$clg,$r-1);
-}
-
-
-echo "<script>
-alert('Registration Sucessfull');
-window.location.href='index.php';
-</script>";
-}
+    header("location:index.php");
 ?>
-
-
-

@@ -1,112 +1,96 @@
 <?php
-
-require 'vendor/autoload.php';
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-$spreadsheet = $reader->load("database/reg.xlsx");
-$r=2;
-$email;
-$clg;
+include_once("connect.php");
 $cod='no';
-$web='no';
-$idea='no';
 $star='no';
 $game='no';
-$treasure='no';
 $quiz='no';
+$web='no';
 $market='no';
-$tname1='';
-$tname2;
-$tname3;
-$tname4;
-$qname;
-$mname1;
-$mname2;
-$mname3;
-
-function check($sheet,$name,$clg,$item)
+$treasure='no';
+$g_w=0;
+$g_q=0;
+$g_t=0;
+$g_m=0;
+$query="SELECT * FROM `registered-college`";
+$result=mysqli_query($con,$query)or die(mysqli_error($con));	    
+if(isset($_POST['check']))
 {
-    $r=2;
-    $name1=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$r)->getValue();
-    while(isset($name1))
+    $email=$_POST['email'];
+    $clg=$_POST['clg'];
+    $r=mysqli_query($con,"select * from `registered-students` where `EMAIL`='$email' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    if(mysqli_num_rows($r)==0)
+            echo "<script> alert('Email is not registered')</script>";             
+    else
     {
-        if($name1==$name)
+     $rw=mysqli_fetch_array($r);
+     $name=$rw['NAME'];
+     $rid=$rw['reg-id'];
+    $r1=mysqli_query($con,"select * from `coding` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    $r2=mysqli_query($con,"select * from `gaming` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    $r3=mysqli_query($con,"select * from `star of inspiro` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    $a=mysqli_num_rows($r1);
+    if(mysqli_num_rows($r1)!=0)
+        $cod='yes';
+    if(mysqli_num_rows($r2)!=0)
+        $game='yes';
+    if(mysqli_num_rows($r3)!=0)
+       $star='yes';
+    $r4=mysqli_query($con,"select * from `web designing` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    $r5=mysqli_query($con,"select * from `treasure hunt` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    $r6=mysqli_query($con,"select * from `quiz` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    $r7=mysqli_query($con,"select * from `marketing` where `NAME`='$name' and `COLLEGE`='$clg'")or die(mysqli_error($con));
+    if(mysqli_num_rows($r6)!=0)
+    {
+        $quiz='yes';
+        $rw4=mysqli_fetch_array($r6);
+        $g_q=$rw4['G_ID'];
+        $r9=mysqli_query($con,"select * from `quiz` where `G_ID`='$g_q' and `NAME`!='$name'")or die(mysqli_error($con));
+        $rr=mysqli_fetch_array($r9);
+            $qname=$rr['NAME'];   
+    }
+    if(mysqli_num_rows($r4)!=0)
+    {
+        $web='yes';
+        $rw4=mysqli_fetch_array($r4);
+        $g_w=$rw4['G_ID'];
+        $r9=mysqli_query($con,"select * from `web designing` where `G_ID`='$g_w' and `NAME`!='$name'")or die(mysqli_error($con));
+        $rr=mysqli_fetch_array($r9);
+            $wname=$rr['NAME'];   
+    }
+    if(mysqli_num_rows($r5)!=0)
+    {
+        $treasure='yes';
+        $rw4=mysqli_fetch_array($r5);   
+        $g_t=$rw4['G_ID'];
+        $r9=mysqli_query($con,"select * from `treasure hunt` where `G_ID`='$g_t' and `NAME`!='$name'")or die(mysqli_error($con));
+        $i=1;
+        While($rr=mysqli_fetch_array($r9))
         {
-        $clg1=$sheet->getActiveSheet()->getCellByColumnAndRow(3,$r)->getValue();
-        $gid=$sheet->getActiveSheet()->getCellByColumnAndRow(4,$r)->getValue();
-        $gid1=$sheet->getActiveSheet()->getCellByColumnAndRow(4,$r+1)->getValue();
-        if($clg==$clg1)
-        {
-            switch($item)
-            {
-                case "coding":
-                    $GLOBALS['cod']='yes';
-                    break;
-                case "designing":
-                    $GLOBALS['web']='yes';
-                    break;
-                case "gaming":
-                    $GLOBALS['game']='yes';
-                    break;
-                case "star":
-                    $GLOBALS['star']='yes';
-                    break;
-                case "idea":
-                    $GLOBALS['idea']='yes';
-                    break;
-                case "market":
-                    $GLOBALS['market']='yes';
-                    $i=1;
-                    $t=$r+1;
-                    while($gid1==$gid)
-                    {
-                        $GLOBALS['mname'.$i]=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$t)->getValue();
-                        $gid1=$sheet->getActiveSheet()->getCellByColumnAndRow(4,$t+1)->getValue();
-                        $i++;
-                        $t++;                        
-                    }
-                    break;
-                case "quiz":
-                    $GLOBALS['quiz']='yes';
-                    $i=1;
-                    $t=$r+1;
-                    while($gid1==$gid)
-                    {
-                        $GLOBALS['qname']=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$t)->getValue();
-                        $gid1=$sheet->getActiveSheet()->getCellByColumnAndRow(4,$t+1)->getValue();
-                        $i++;
-                        $t++;                        
-                    }
-                    
-                    break;
-                case "treasure":
-                    $GLOBALS['treasure']='yes';
-                    $i=1;
-                    $t=$r+1;
-                    while($gid1==$gid)
-                    {
-                        $GLOBALS['tname'.$i]=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$t)->getValue();
-                        $gid1=$sheet->getActiveSheet()->getCellByColumnAndRow(4,$t+1)->getValue();
-                        $i++;
-                        $t++;                        
-                    }
-                    
-                    break;
-                    
-            }
+            ${'tname'.$i}=$rr['NAME'];
+            $i++;
         }
-        }
-        $r++;
-        $name1=$sheet->getActiveSheet()->getCellByColumnAndRow(2,$r)->getValue();
+        
         
     }
+    if(mysqli_num_rows($r7)!=0)
+    {
+        $market='yes';
+        $rw4=mysqli_fetch_array($r7);   
+        $g_m=$rw4['G_ID'];
+        $r9=mysqli_query($con,"select * from `marketing` where `G_ID`='$g_m' and `NAME`!='$name'")or die(mysqli_error($con));
+        $i=1;
+        While($rr=mysqli_fetch_array($r9))
+        {
+            ${'mname'.$i}=$rr['NAME'];
+            $i++;
+        }
+        
+    }
+    
+ }
+    
 }
-
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -114,7 +98,6 @@ function check($sheet,$name,$clg,$item)
   <title>INSPIRO i8</title>   
   <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,100,700%7Dosis:400,500" rel="stylesheet">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <link href="css/style.css" rel="stylesheet">
   <link href="css/animate.css" rel="stylesheet">
   <link href="css/et-line.css" rel="stylesheet">
@@ -126,10 +109,8 @@ function check($sheet,$name,$clg,$item)
   <link rel="stylesheet" href="css/cd/font-awesome.min.css">
   <link href="css/cd/style1.css" rel="stylesheet" type="text/css">
 
+
   
-<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/reg.js"></script>
  <style>
   form input,button{ 
 background-color: rgba(0,0,.8,.4);
@@ -154,6 +135,7 @@ legend{
          
      }
 form select {
+    font-size: 13px;
     padding:1px;
     margin: 0;
     -webkit-border-radius:2px;
@@ -180,17 +162,7 @@ form select:hover{
      }
 
   </style>
-<?php 
-if(isset($_POST['check']))
-{
-?>
- <script>
-  document.getElementById("clg") = '<?php echo $_POST['clg']; ?>';
-  document.getElementById("name") = '<?php echo $_POST['name']; ?>';
- </script>
-<?php
-}
-?>
+
       
 </head>
 
@@ -199,7 +171,7 @@ if(isset($_POST['check']))
 <nav class="main-nav white transparent stick-fixed">
       <div class="full-wrapper relative clearfix">
         <!-- Logo ( paste you text or image)-->
-        <div class="nav-logo-wrap"><a href="index.php" class="logo">INSPIRO<span class="higl"><sub>i8</sub></span></a></div>    
+        <div class="nav-logo-wrap"><a href="index.php" class="logo"><img src="img/font.PNG" alt=""></a></div>    
       </div>
     </nav>
 
@@ -219,118 +191,59 @@ if(isset($_POST['check']))
             </div></div></div>
             <div class='col-md-5'>
             <div class='row'>    
-            <div class='col-md-4'>College</div>
-			<div class='col-md-4'><select name='clg' id='clg' value="<?php if(isset($_POST['clg'])) echo $_POST['clg']; ?>">
+            <div class='col-md-3'>College</div>
+			<div class='col-md-6'><select name='clg' id='clg' value="<?php if(isset($_POST['clg'])) echo $_POST['clg']; ?>">
 												  <option>Select</option>
-                                                    <?php
-                                                    $spreadsheet->setActiveSheetIndexByName('registered-college');
-                                                    $r=2;
-                                                    $clg=$spreadsheet->getActiveSheet()->getCellByColumnAndRow(2,$r)->getValue();
-                                                    while(isset($clg))
-                                                    {
-                                                  ?>
-                                                     <option><?php echo $clg; ?></option>
-                                                        <?php $r++;
-                                                        $clg=$spreadsheet->getActiveSheet()->getCellByColumnAndRow(2,$r)->getValue();
-                                                    }
-												  ?>
+                                                 <?php
+                                                 while($row=mysqli_fetch_array($result))
+                                                 {
+                                                    $a=$row['NAME'].", ".$row['PLACE'];
+                                                 ?>
+                                                    <option><?php echo $a; ?></option>     
+                                                 <?php } ?>
+												
                                                   </select>
             </div>
-            <div class='col-md-4'>
-                <input type='submit' name='check'>
+            <div class='col-md-2'>
+                <input type='submit' name='check' value='SUBMIT'>
             </div>
             </div>  
           </div></div>
           </form>
       </filedset><br><br>
-
-          <?php
-
-
-if(isset($_POST['check']))
-{
-    $r=2;
-    $email=$_POST['email'];
-    $clg=$_POST['clg'];
-    $spreadsheet->setActiveSheetIndexByName('registered-students');
-    $emailValue=$spreadsheet->getActiveSheet()->getCellByColumnAndRow(5,$r)->getValue();
-    while(isset($emailValue))
-      {
-          $r++;
-          if($email==$emailValue)
-          {
-              $f=1;
-              break;
-          }
-          $emailValue=$spreadsheet->getActiveSheet()->getCellByColumnAndRow(5,$r)->getValue();
-    }
-    if(!isset($emailValue))
-    {
-        echo "<script> alert('Email is not registered'); </script>";
-    }
-    if($f==1)
-    {
-        
-        $clgValue=$spreadsheet->getActiveSheet()->getCellByColumnAndRow(6,$r-1)->getValue();
-        $name=$spreadsheet->getActiveSheet()->getCellByColumnAndRow(2,$r-1)->getValue();
-        
-        if($clg!=$clgValue)
-        {
-            echo "<script> alert('Email id and College doesnt match'); </script>";
-        }
-        else
-        {
-            $spreadsheet1 = $reader->load("database/event.xlsx");
-            $spreadsheet1->setActiveSheetIndexByName('coding');
-            check($spreadsheet1,$name,$clg,"coding");
-            $spreadsheet1->setActiveSheetIndexByName('designing');
-            check($spreadsheet1,$name,$clg,"designing");
-            $spreadsheet1->setActiveSheetIndexByName('gaming');
-            check($spreadsheet1,$name,$clg,"gaming");
-            $spreadsheet1->setActiveSheetIndexByName('star-of-inspiro');
-            check($spreadsheet1,$name,$clg,"star");
-            $spreadsheet1->setActiveSheetIndexByName('idea-presentation');
-            check($spreadsheet1,$name,$clg,"idea");
-            $spreadsheet1->setActiveSheetIndexByName('quiz');
-            check($spreadsheet1,$name,$clg,"quiz");
-            $spreadsheet1->setActiveSheetIndexByName('marketing');
-            check($spreadsheet1,$name,$clg,"market");
-            $spreadsheet1->setActiveSheetIndexByName('treasure-hunt');
-            check($spreadsheet1,$name,$clg,"treasure");
-            
-        }
-
-    }
-}
-
-?>
-          
+     
           <form action='update.php' method='post'>  
+              <input type='hidden' name='name' value='<?php echo $name; ?>'>
+              <input type='hidden' name='clg' value='<?php echo $clg; ?>'>
+              <input type='hidden' name='wid' value='<?php echo $g_w; ?>'>
+              <input type='hidden' name='tid' value='<?php echo $g_t; ?>'>
+              <input type='hidden' name='qid' value='<?php echo $g_q; ?>'>
+              <input type='hidden' name='mid' value='<?php echo $g_m; ?>'>
+              <input type='hidden' name='rid' value='<?php echo $rid; ?>'>
     <filedset>
               <legend>Single Events</legend>
             <div class='row' >
             <div class='col-md-5 col-md-offset-0'>
             <div class='row'>
-	        <div class='col-md-5'><input type='checkbox' name='cod' id='cod' value='yes' <?php if($cod=='yes') echo "checked='checked'" ;?> > &nbsp CODIFICIA</div>
-			<div class='col-md-5 '><input type='checkbox' name='idea' <?php if($idea=='yes') echo "checked='checked'" ;?>>&nbsp IDEA PRESENTATION</div></div>
+	        <div class='col-md-5'></div>
+			<div class='col-md-5 '><input type='checkbox' name='cod' id='cod' value='yes' <?php if($cod=='yes') echo "checked='checked'" ;?> > &nbsp; CODIFICIA</div></div>
             </div>
             <div class='col-md-7'>
             <div class='row'>    
-            <div class='col-md-4'><input type='checkbox' name='star' id='star' <?php if($star=='yes') echo "checked='checked'" ;?>>&nbsp STAR OF INSPIRO</div>
-			<div class='col-md-5'><input type='checkbox' name='web' id='web'<?php if($web=='yes') echo "checked='checked'" ;?>>&nbsp WEBTISM</div>
-            <div class='col-md-2'><input type='checkbox' name='game' id='game' <?php if($game=='yes') echo "checked='checked'" ;?>>&nbsp GAMING</div>
+            <div class='col-md-4'><input type='checkbox' name='star' id='star' <?php if($star=='yes') echo "checked='checked'" ;?>>&nbsp; STAR OF INSPIRO</div>
+			<div class='col-md-5'><input type='checkbox' name='game' id='game' <?php if($game=='yes') echo "checked='checked'" ;?>>&nbsp; GAMING</div>
+            <div class='col-md-2'></div>
             </div>  
           </div></div>
-      </filedset><br><br>
+      </filedset><br>
       <fieldset>
 	  <legend>Group Events</legend>
-	      <br>
           <div class='row'>
             <div class='col-md-5 col-md-offset-0'>
             <div class='row'>
-            <div class='col-md-1' ></div>    
-	        <div class='col-md-4' align='left'><input type='checkbox' name='quiz' id='quiz' <?php if($quiz=='yes') echo "checked='checked'" ;?>>&nbsp QUIZZARDS</div>
-			<div class='col-md-5 '><input type='text'readonly name='quiz_p'  id='quiz_t' placeholder='Partners Name' <?php if($quiz=='no') "readonly" ?> <?php if($quiz=='yes') echo "value=$qname";?>> </div></div>
+            <div class='col-md-1'></div>    
+	        <div class='col-md-5' align='left'><input type='checkbox' name='quiz' id='quiz' <?php if($quiz=='yes') echo "checked='checked'" ;?>>&nbsp; QUIZZARDS</div>
+			<div class='col-md-5 '><input type='text' name='quiz_p'  id='quiz_t' placeholder='Partners Name' <?php if($quiz=='no') ?> <?php if($quiz=='yes') echo "value=$qname";?>> </div></div>
             </div>
             <div class='col-md-7'>
             <div class='row'>    
@@ -339,10 +252,24 @@ if(isset($_POST['check']))
             <div class='col-md-2'></div>
             </div>  
           </div></div><br>
-		  <div class='row'>
+		 <div class='row'>
             <div class='col-md-5 col-md-offset-0'>
             <div class='row'>
-	        <div class='col-md-5'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type='checkbox' name='market' id='market' <?php if($market=='yes') echo "checked='checked'" ;?>>&nbsp THE BIG BASH</div>
+            <div class='col-md-1' ></div>    
+	        <div class='col-md-5' align='left'><input type='checkbox' name='web' id='web' <?php if($web=='yes') echo "checked='checked'" ;?>>&nbsp; WEBTISM</div>
+			<div class='col-md-5 '><input type='text' name='web_p'  id='web_t' placeholder='Partners Name' <?php if($web=='no') "readonly" ?> <?php if($web=='yes') echo "value=$wname";?>> </div></div>
+            </div>
+            <div class='col-md-7'>
+            <div class='row'>    
+            <div class='col-md-4'></div>
+			<div class='col-md-5'></div>
+            <div class='col-md-2'></div>
+            </div>  
+          </div></div><br>
+          <div class='row'>
+            <div class='col-md-5 col-md-offset-0'>
+            <div class='row'>
+            <div class='col-md-6' align='left'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='market' id='market' <?php if($market=='yes') echo "checked='checked'" ;?>>&nbsp; THE BIG BASH</div>
 			<div class='col-md-5 '><input type='text' name='market_p1' id='market_p1' placeholder='Partners Name'  <?php if($market=='yes') echo "value=$mname1";?>></div></div>
             </div>
             <div class='col-md-7'>
@@ -355,30 +282,29 @@ if(isset($_POST['check']))
 		  <div class='row'>
             <div class='col-md-5 col-md-offset-0'>
             <div class='row'>
-	        <div class='col-md-5'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type='checkbox' name='treasure' id='treasure' <?php if($treasure=='yes') echo "checked='checked'" ;?>>&nbsp FORTUNE HUNT</div>
-			<div class='col-md-5 '><input type='text' name='treasure_p2' id='treasure_p2' placeholder='Partners Name' <?php if($market=='yes') echo "value=$tname1";?>></div></div>
+	        <div class='col-md-6' align='left'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='treasure' id='treasure' <?php if($treasure=='yes') echo "checked='checked'" ;?>>&nbsp; FORTUNE HUNT</div>
+			<div class='col-md-5 '><input type='text' name='treasure_p1' id='treasure_p1' placeholder='Partners Name' <?php if($market=='yes') echo "value=$tname1";?>></div></div>
             </div>
             <div class='col-md-7'>
             <div class='row'>    
-            <div class='col-md-4'><input type='text' name='treasure_p3' id='treasure_p3' placeholder='Partners Name'  <?php if($treasure=='yes') echo "value=$tname2";?>></div>
-			<div class='col-md-4'><input type='text' name='treasure_p4' id='treasure_p4' placeholder='Partners Name'  <?php if($treasure=='yes') echo "value=$tname3";?>></div>
-            <div class='col-md-2'><input type='text' name='treasure_p1' id='treasure_p1' placeholder='Partners Name'  <?php if($treasure=='yes') echo "value=$tname4";?>></div>
+            <div class='col-md-4'><input type='text' name='treasure_p2' id='treasure_p2' placeholder='Partners Name'  <?php if($treasure=='yes') echo "value=$tname2";?>></div>
+			<div class='col-md-4'><input type='text' name='treasure_p3' id='treasure_p3' placeholder='Partners Name'  <?php if(isset($tname3)) echo "value=$tname3";?>></div>
             </div>  
           </div></div>
         </fieldset><br>
-        	    <button type='submit' class='sbtn'>Update</button>
+        	    <input type='submit' name='update' class='sbtn' value='Update'>
           </form></fieldset>
  	  </div>
 	  </div>    
 	  </section>
 
   
-  
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>  
 <script src="js/main.js"></script>
 <script src="js/jquery.ajaxchimp.min.js"></script>    
-<script src="js/style.changer.js"></script>
 <script src="js/jquery.particleground.min.js"></script>
-	
+<script src="js/reg.js"></script>	
 
 	
 

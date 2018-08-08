@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
         $("#myModal").modal('show');
     $('#clg').change(function(){
         var sam = $('#clg option:selected').val();
@@ -23,16 +23,21 @@ $(document).ready(function(){
       $('#treasure_p1').removeAttr("readonly", $(this).is(":checked"));
       $('#treasure_p2').removeAttr("readonly", $(this).is(":checked"));
       $('#treasure_p3').removeAttr("readonly", $(this).is(":checked"));
-      $('#treasure_p4').removeAttr("readonly", $(this).is(":checked"));
       $('#treasure_p1').attr("required", $(this).is(":checked"));
       $('#treasure_p2').attr("required", $(this).is(":checked"));
-      $('#treasure_p3').attr("required", $(this).is(":checked"));
-      $('#treasure_p4').attr("required", $(this).is(":checked"));
+      });
+    $("#web").click(function () {
+      $('#web_t').removeAttr("readonly", $(this).is(":checked"));
+      $('#web_t').attr("required", $(this).is(":checked"));
+      });
+    $("#idea").click(function () {
+      $('#idea_p1').removeAttr("readonly", $(this).is(":checked"));
+      $('#idea_p2').removeAttr("readonly", $(this).is(":checked"));
+      $('#idea_p1').attr("required", $(this).is(":checked"));
+      $('#idea_p2').attr("required", $(this).is(":checked"));
       });
     
-   
-   
-    $("#modal2").dialog({
+     $("#modal2").dialog({
 		modal: true,
         autoOpen: false
     });
@@ -42,6 +47,4 @@ $(document).ready(function(){
         }
     });
    });
-
-
 	

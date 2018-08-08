@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+      
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="shortcut icon" href="img/team/favicon.png">
+    <link rel="icon" href="img/inspiro.ico"/>
     <title>INSPIRO i8</title>
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,100,700%7Dosis:400,500" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +60,7 @@
     <nav class="main-nav white transparent stick-fixed">
       <div class="full-wrapper relative clearfix">
         <!-- Logo ( paste you text or image)-->
-        <div class="nav-logo-wrap"><a href="" class="logo">INSPIRO<span class="higl"><sub>i8</sub></span></a></div>
+        <div class="nav-logo-wrap"><a href="" class="logo"><img src="img/font.PNG" alt=""></a></div>
         <div class="navbar-mobile"><i class="fa fa-bars"></i></div>
         <!-- Main Menu-->
         <div class="inner-nav navbar-desktop">
@@ -88,11 +89,11 @@
 	<div id="particle-ground" data-background="img/full-width/bg-21.jpg" data-top="transform: translate3d(0px, 0px, 0px)" data-top-bottom="transform: translate3d(0px, -200px, 0px)" data-anchor-target="#hero" class="parallax parallax-hero full-screen bg-dark-50"></div>
       <div class="hero-content">
         <div class="hero-content-inner">
-          <div data-wow-delay="0.5s" data-wow-duration="3s" class="hs-line-2 wow fadeInDown">kerala's Biggest IT Fest <br>18th - 19st September 2018</div>
-          <h1 data-wow-delay="0.5s" data-wow-duration="3s" class="hs-line-1 wow fadeIn">INSPIRO <sub>i8</sub></h1>
+          <div data-wow-delay="0.5s" data-wow-duration="3s" class="hs-line-2 wow fadeInDown">kerala's Biggest IT Fest <br>18th - 19th September 2018</div>
+            <h1 data-wow-delay="0.5s" data-wow-duration="3s" class="hs-line-1 wow fadeIn "><font style="opacity: 0.0;">INSPIRO <sub>i8</sub></font></h1>
 		  <br>
 	            <div data-effect="fadeInUp" class="mt-30 animate-e"><a href="register.php" class="scroll btn btn-coffee btn-border-w btn-round btn-medium"><span>Register</span></a><span>&nbsp; &nbsp;</span>
-            <a href="events.php" class="scroll btn btn-coffee btn-border-w btn-round btn-medium"><span>Edit Events</span></a><span>&nbsp; &nbsp;</div>
+                    <a href="events.php" class="scroll btn btn-coffee btn-border-w btn-round btn-medium"><span>Edit Events</span></a><span>&nbsp; &nbsp;</span>
                 
 	   </div>
       </div><a href="#page" data-start="display: block" data-100-start="display: none" class="btn-scroll-down scroll"></a>
@@ -107,6 +108,7 @@
                     </div>
                 </li>
 			</ul>
+        </div>
         </div>
   </section>
     <div id="page" class="page">
@@ -139,7 +141,7 @@
             <div class="row mt-60">
               <div class="col-md-3 col-sm-6 text-center">
                 <div class="fact-item">
-                  <div class="fact-number"><span class="icon-trophy"></span><span class="focus-number">50000</span></div>
+                  <div class="fact-number"><span class="icon-trophy"></span><span class="focus-number">75000</span></div>
                   <h5 class="fact-desc alt-font">In Prize Money To Be Won</h5>
                 </div>
               </div>
@@ -157,7 +159,7 @@
               </div>
               <div class="col-md-3 col-sm-6 text-center">
                 <div class="fact-item">
-                  <div class="fact-number"><span class="icon-happy"></span><span class="focus-number">8</span><span>th</span></div>
+                  <div class="fact-number"><span class="icon-happy"></span><span class="focus-number">9</span><span>th</span></div>
                   <h5 class="fact-desc alt-font">Successfull <B>IT FEST</B></h5>
                 </div>
               </div>
@@ -168,121 +170,105 @@
       </section>
 
       <!--Start section Service-->
-      <section id="service" class="pb-40">
+          <section id="service" class="pb-40">
         <div class="container">
           <div class="row mt-40 mt-xs-20">
             <div class="col-md-12 text-center">
               <h3>Events Under <b> INSPIRO <sub>i8</sub> </b></h3>
             </div>
           </div>
-          <div data-wow-delay="0.1s" data-wow-duration="2s" class="row mt-60 mt-xs-30 wow fadeIn">
-		  <a href="http://www.INSPIROfest.com/symulate">
-            <div class="col-sm-3 text-center">
-              <div class="service-item"><i class="icon-mic"></i>
+          <div data-wow-delay="0.1s" data-wow-duration="2s" class="row mt-60 mt-xs-30 wow fadeIn" >
+		  <a href="img/images/star-of-inspiro.jpg" class='flipLightBox' alt="">
+              <div class="col-sm-3 text-center">
+              <div class="service-item"><i class="fa fa-star-o"></i>
                 <h5 class="alt-font">Star of INSPIRO</h5>
                 <div class="service-desc">
-                  <p>
-				   <h2>Prize <br> 6000 </h2> 
-				  </p>
+                  <h2><p>Prize : 6000 </p></h2>
                 </div>
               </div>
-            
 			</div>
+              </a>
+			<a href="img/images/coding.jpg" class='flipLightBox' alt="">
+            <div class="col-sm-3 text-center"  >
+              <div class="service-item"><i class="fa fa-code"></i>
+                <h5 class="alt-font">CODIFICA</h5>
+                <div class="service-desc"> 
+					<h2><p>First Prize : 3000 
+						<br>
+					Second Prize : 2000</p> </h2> 
+                </div>
+              </div>
+            </div>
 			</a>
-			<a href="http://www.INSPIROfest.com/simunc">
+			<a href="img/images/web-designing.jpg" class='flipLightBox' alt="">
             <div class="col-sm-3 text-center">
               <div class="service-item"><i class="icon-laptop"></i>
-                <h5 class="alt-font">WEB DESIGNING</h5>
+                <h5 class="alt-font">WEBTISM</h5>
                 <div class="service-desc">
-                  <p> 
-						<h2>First Prize <br> 4000 </h2> 
+						<h2><p>First Prize : 3000   
 						<br>
-						<h2>Second Prize <br> 2000 </h2> 
-				  </p>
+						 Second Prize : 2000</p> </h2> 
                 </div>
               </div>
             </div>
 			</a>
-			<a href="http://www.INSPIROfest.com/ananya">
+            <a href="img/images/gaming.jpg" class='flipLightBox'>
             <div class="col-sm-3 text-center">
-              <div class="service-item"><i class="icon-laptop"></i>
-                <h5 class="alt-font">CODING</h5>
+              <div class="service-item"><i class="fa fa-gamepad"></i>
+                <h5 class="alt-font">HAZARD</h5>
                 <div class="service-desc">
-                  <p> 
-					<h2>First Prize <br> 4000 </h2> 
+                    <h2><p>First Prize : 3000   
 						<br>
-					<h2>Second Prize <br> 2000 </h2> 
-				  </p>
+				    Second Prize : 2000</p> </h2> 
                 </div>
               </div>
             </div>
 			</a>
-			<a href="http://www.INSPIROfest.com/headline">
-            <div class="col-sm-3 text-center">
-              <div class="service-item"><i class="icon-layers"></i>
-                <h5 class="alt-font">GAMING</h5>
-                <div class="service-desc">
-                  <p>
-					<h2>First Prize <br> 4000 </h2> 
-						<br>
-					<h2>Second Prize <br> 2000 </h2>
-				  </p>
-                </div>
-              </div>
-            </div>
-			</a>
-			<a href="http://www.INSPIROfest.com/sprint">
+			<a href="img/images/treasure.jpg" class='flipLightBox' alt="">
             <div class="col-sm-3 text-center">
               <div class="service-item"><i class="icon-trophy"></i>
-                <h5 class="alt-font">TREASURE HUNT</h5>
-                <div class="service-desc">
-                  <p> 
-					<h2>Prize : 5000 </h2> 
-				  </P>
+                <h5 class="alt-font">FORTUNE HUNT</h5>
+                <div class="service-desc"> 
+                    <h2> <p> Prize : 5000</p></h2>
                 </div>
               </div>
             </div>
             </a>
-			<a href="http://www.INSPIROfest.com/simunc">
+			<a href="img/images/it-quiz.jpg" class='flipLightBox' alt="">
             <div class="col-sm-3 text-center">
-              <div class="service-item"><i class="icon-global"></i>
-                <h5 class="alt-font">IT QUIZ</h5>
+              <div class="service-item"><i class="fa fa-question-circle"></i>
+                <h5 class="alt-font">QUIZZARDS</h5>
                 <div class="service-desc">
-                  <p>
-					<h2>First Prize : 4000 </h2> 
+					<h2><p>First Prize : 4000  
 						<br>
-					<h2>Second Prize : 2000 </h2>
-				  </p>
+					Second Prize : 2000 </p></h2>
                 </div>
               </div>
             </div>
 			</a>
     
-            <a href="img/images/marketing%20copy.png">
+            
+			<a href="img/images/marketing.jpg" class='flipLightBox' alt="">
             <div class="col-sm-3 text-center">
               <div class="service-item"><i class="icon-global"></i>
-                <h5 class="alt-font">MARKETING</h5>
+                <h5 class="alt-font">THE BIG BASH</h5>
                 <div class="service-desc">
-                  <p>
-					<h2>First Prize : 4000 </h2> 
+					<h2><p>First Prize : 4000 
 						<br>
-					<h2>Second Prize : 2000 </h2>
-				  </p>
+                    Second Prize : 2000 </p></h2>
                 </div>
               </div>
             </div>
 			</a>
             
-            <a href="http://www.INSPIROfest.com/simunc">
+            <a href="img/images/idea-presentation.jpg" class='flipLightBox' alt="">
             <div class="col-sm-3 text-center">
-              <div class="service-item"><i class="icon-mic"></i>
-                <h5 class="alt-font">IDEA PRESENTATION</h5>
+              <div class="service-item"><i class="fa fa-lightbulb-o"></i>
+                <h5 class="alt-font">BRAIN TUNE</h5>
                 <div class="service-desc">
-                  <p>
-					<h2>First Prize : 4000 </h2> 
+					<h2><p>First Prize : 4000 
 						<br>
-					<h2>Second Prize : 2000 </h2>
-				  </p>
+                        Second Prize : 2000 </p></h2>
                 </div>
               </div>
             </div>
@@ -291,7 +277,7 @@
            </div>
         </div>
       </section>
-    
+
 
 
       <section id="team">
@@ -313,23 +299,7 @@
               </div>
             </div>
           </div>
-          <!--Item end-->
-	<!--	  <div>
-            <div class="container">
-              <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                  <div class="section-icon"><span class="icon-quote"></span></div>
-                  <h3 class="alt-font">What people say?</h3>
-                  <blockquote class="testimonial">
-                    <p>Always a pleasure to visit INSPIRO.</p>
-                    <footer class="testimonial-author">Ms. Anu Aga</footer>
-                  </blockquote>
-                </div>
-              </div>
-            </div>
-          </div> 
-        </div>-->
-        <!--Testimonial slider end-->
+          </div>
       </section>
       <hr>
      
@@ -349,11 +319,11 @@
           <div class="row mt-60 mt-xs-30">
             <div class="col-md-8 col-md-offset-2 text-center">
                 <div class="col-sm-4 contact-item"><span class="icon-phone"></span>
-                <p><b>Programme Coordinators</b><br>Sayooj P <br>+91 9746217453<br>sayoojputhiyaramban@gmail.com</p>
+                <p><b>Program Coordinator</b><br>Sayooj P <br>+91 9746217453<br>sayoojputhiyaramban@gmail.com</p>
               </div>
 			   
 			   <div class="col-sm-4 contact-item"><span class="icon-phone"></span>
-                <p><b>Cheif Coordinator</b><br>George Joseph<br>+91 9744749304<br>.com</p>
+                <p><b>Cheif Coordinator</b><br>George Joseph<br>+91 9744749304<br></p>
               </div>
 			  
 			  <div class="col-sm-4 contact-item"><span class="icon-phone"></span>
@@ -374,14 +344,17 @@
           </div>
         </div>
         <!--End google-map -->
-      </section>
+          </div>
+    </section>
       <!--Contacts section end -->
       <!-- Page Footer Start-->
       <footer class="page-footer">
         <div class="container text-center">
           <!-- Social links-->
-          <div class="social-links"><a href="https://www.facebook.com/inspiroi8" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></div>
-          <div class="copy-right mt-50"><a href="#" class="alt-font"></a>
+          <div class="social-links"><a href="https://www.facebook.com/inspiroi8" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a href="reg_details.php" title="Registered Details" target="_blank"><i class="fa fa-download"></i></a>
+        </div>
+          <div class="copy-right mt-50"><a href="#" class="alt-font">
             <p>INSPIRO<sub>i8</sub>@All rights reserved<p>
           </div>
         </div><a href="#top" class="scroll scroll-to-top"><i class="fa fa-angle-up"></i></a>
@@ -407,31 +380,29 @@
         </ul>
       </div>
     </div>
-    <!--JS sctipts-->
-    <script src="js/vendor/jquery-2.1.3.min.js"></script>
-    <script src="js/smoothscroll.js"></script>
-    <script src="js/plagins.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false&amp;amp;language=en"></script>
-    <script src="js/gmap3.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.fitvids.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/contact-form.js"></script>
-    <!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
-    
-    <!--Delete after config-->
-    <script src="js/style.changer.js"></script>
-    <script src="js/jquery.particleground.min.js"></script>
-	
-	
-	<script src="js/cd/plugins.js"></script> 
-    <script src="js/cd/jquery.countdown.min.js"></script> 
-    <script src="js/cd/mainn.js"></script>
-	
-	
-	
+<!--JS sctipts-->
+<script src="js/vendor/jquery-2.1.3.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/plagins.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/isotope.pkgd.min.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&amp;amp;language=en"></script>
+<script src="js/gmap3.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/jquery.fitvids.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/fliplightbox.min.js"></script>
+<script type="text/javascript">$('body').flipLightBox()</script>
+<script src="js/jquery.particleground.min.js"></script>
+
+
+<script src="js/cd/plugins.js"></script> 
+<script src="js/cd/jquery.countdown.min.js"></script> 
+<script src="js/cd/mainn.js"></script>
+
+
+
   </body>
 </html>
